@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"> 
+<meta name="theme-color" content="#ffffff">
+<script src="https://telegram.org/js/telegram-web-app.js?56"></script>
+
+<title>Fullscreen Gallery</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    width: 100%;
+    min-height: 100%;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: var(--tg-theme-text-color, #000000);
+    background-color: var(--tg-theme-secondary-bg-color, rgba(255,255,255,0.05));
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 100vh;
+    text-align: center;
+    padding: 0;
+    box-sizing: border-box;
+    overflow-x: hidden;
+}
+
+/* safe area for notch devices */
+body { padding-top: env(safe-area-inset-top); padding-bottom: env(safe-area-inset-bottom); }
+
+.section {
+    position: relative;
+    width: auto;
+    height: auto;
+    overflow: hidden;
+    display: inline-block;
+    margin: 0 auto;
+    border-radius: 12px;
+}
+
+.section img {
+    width: 100%;
+    height: auto;
+    max-width: 100vw;
+    max-height: 130vh;
+    object-fit: contain;
+    display: block;
+}
+
+.photo-button {
+    position: absolute;
+    left: 74%;
+    top: 72%;
+    transform: translate(-50%, -50%);
+    border: none;
+    background: transparent;
+    padding: 0;
+    margin: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 0;
+    font-size: 0;
+    width: clamp(40px, 50%, 3000px);
+    height: auto;
+    cursor: pointer;
+    z-index: 2;
+}
+
+.photo-button img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+    animation: button-swing 3s ease-in-out infinite;
+}
+
+@keyframes button-swing {
+    0%, 100% {
+        transform: translateX(0) rotate(0deg);
+    }
+    25% {
+        transform: translateX(-2%) rotate(-3deg);
+    }
+    50% {
+        transform: translateX(0) rotate(0deg);
+    }
+    75% {
+        transform: translateX(2%) rotate(3deg);
+    }
+}
+
+.divider{
+    height:2px;
+    display:flex;
+
+}
+
+
+
+
+</style>
+
+</head>
+<body>
+<div class="divider"></div>
+<style>
+.button_info{
+
+    position: absolute;
+    left: 10%;
+    top: 70%;
+    width: clamp(40px, 35%, 3000px);
+    height: auto;
+    background: transparent;
+    border: none;
+}
+.overlay-btn {
+    position: absolute;
+    top: 74%;
+    left: 16%;
+    width: clamp(30px, 63%, 3000px);
+    aspect-ratio: 6/ 1;   /* ширина : высота */
+    height: auto;
+    background: rgba(255, 255, 255, 0.13);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    color: #fff;
+    font-size: 16px;
+    border-radius: 8px;
+    cursor: pointer;
+
+}
+</style>
+
+<section class="section">
+    <img src="images/1.png" alt="Фото 1">
+</section>
+
+<div class="divider"></div>
+
+<section class="section">
+    <img src="images/2.png" alt="Фото 2">
+    <button class="overlay-btn"></button>
+</section>
+<div class="divider"></div>
+
+<section class="section">
+    <img src="images/3.png" alt="Фото 3">
+</section>
+
+<div class="divider"></div>
+
+<section class="section">
+    <img src="images/4.png" alt="Фото 4">
+     <button class="overlay-btn" style="top: 77%;" onclick="window.location.href='https://link.payform.ru/?paymentLinkId=20e0ec85-02f4-4685-8de6-6edf6edf6cfd'"></button>
+     
+</section>
+<div class="divider"></div>
+
+<section class="section">
+    <img src="images/5.png" alt="Фото 5">
+    <button class="overlay-btn"></button>
+</section>
+
+
+
+<style>
+  
+    .video-overlay {
+        position: absolute;
+        left: 21%;
+        top: 49%;
+        transform: translate(-50%, -50%);
+        width: clamp(40px, 31%, 3000px);
+        height: auto;
+        max-height: 130vh;
+        cursor: pointer;
+        border-radius: 12px;
+        z-index: 3;
+    }
+</style>
+
+<script>
+   async function checkServerHealth() {
+  try {
+    const response = await fetch('https://taro-bot-0w6u.onrender.com');
+    if (response.ok) {
+      const data = await response.json();
+      console.log('Сервер исправен:', data);
+    } else {
+      console.warn('Сервер вернул ошибку:', response.status);
+    }
+  } catch (error) {
+    console.error('Сервер недоступен (нет связи):', error);
+  }
+}
+
+checkServerHealth();
+
+setInterval(checkServerHealth, 60 * 60 * 1000);
+
+    
+    
+    const tg = window.Telegram && window.Telegram.WebApp;
+    if (tg) {
+        try {
+            tg.BackButton.hide();
+        } catch (error) {
+            console.warn('Telegram WebApp BackButton hide failed', error);
+        }
+        tg.ready();
+    }
+
+    const buttonInfo = document.querySelector('.button_info');
+    const buttonInfo2 = document.querySelector('.button41');
+    const videoPreview = document.getElementById('videoPreview');
+
+    buttonInfo.addEventListener('click', () => {
+       openPay();
+    });
+    buttonInfo2.addEventListener('click', () => {
+        openPay();
+    });
+
+    if (videoPreview) {
+        videoPreview.addEventListener('click', () => {
+            if (videoPreview.paused) {
+                videoPreview.play();
+            } else {
+                videoPreview.pause();
+            }
+        });
+    }
+
+  function openPay() {
+    const payUrl = 'https://link.payform.ru/?paymentLinkId=cafae511-df4e-4a3b-8dc9-4dab74a3f090';
+        if (tg && typeof tg.openLink === 'function') {
+            tg.openLink(payUrl);
+        } else {
+            window.location.href = payUrl;
+        }
+    };
+</script>
+</body>
+</html>

@@ -146,6 +146,19 @@ body { padding-top: env(safe-area-inset-top); padding-bottom: env(safe-area-inse
     cursor: pointer;
 
 }
+.overlay-video {
+    position: absolute;
+    top: 51%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    
+    width: clamp(30px, 41%, 3000px);  /* базовая ширина */
+    aspect-ratio: 9 / 16;                /* вертикальные пропорции */
+    object-fit: cover;
+    
+    border-radius: 0.5em;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+}
 </style>
 
 <section class="section">
@@ -156,12 +169,15 @@ body { padding-top: env(safe-area-inset-top); padding-bottom: env(safe-area-inse
 
 <section class="section">
     <img src="images/2.png" alt="Фото 2">
-    <button class="overlay-btn"></button>
+    <button class="overlay-btn" onclick="window.location.href='https://link.payform.ru/?paymentLinkId=13d81b22-4ec6-4618-89f0-1d6641ef8713'"></button>
 </section>
 <div class="divider"></div>
 
 <section class="section">
     <img src="images/3.png" alt="Фото 3">
+    <video class="overlay-video" autoplay muted loop playsinline controls>
+        <source src="images/video.mp4">
+    </video>
 </section>
 
 <div class="divider"></div>
@@ -171,6 +187,7 @@ body { padding-top: env(safe-area-inset-top); padding-bottom: env(safe-area-inse
      <button class="overlay-btn" style="top: 77%;" onclick="window.location.href='https://link.payform.ru/?paymentLinkId=20e0ec85-02f4-4685-8de6-6edf6edf6cfd'"></button>
      
 </section>
+
 <div class="divider"></div>
 
 <section class="section">
@@ -180,21 +197,7 @@ body { padding-top: env(safe-area-inset-top); padding-bottom: env(safe-area-inse
 
 
 
-<style>
-  
-    .video-overlay {
-        position: absolute;
-        left: 21%;
-        top: 49%;
-        transform: translate(-50%, -50%);
-        width: clamp(40px, 31%, 3000px);
-        height: auto;
-        max-height: 130vh;
-        cursor: pointer;
-        border-radius: 12px;
-        z-index: 3;
-    }
-</style>
+
 
 <script>
    async function checkServerHealth() {
